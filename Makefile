@@ -2,7 +2,7 @@
 
 # Compiler and Flags.
 CC=g++
-CFLAGS=
+CFLAGS=-g
 
 all: share
 
