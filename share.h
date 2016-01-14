@@ -6,7 +6,6 @@
 #define SHARE_H
 
 #include <string>
-using namespace std;
 
 class Share
 {
@@ -14,13 +13,13 @@ class Share
         float  value_bought_;  // Value bought at
         long   time_bought_;   // Time (epoch) bought at.
         int    volume_bought_; // Number of shares bought.
-        string symbol_;        // Symbol of the stock.
+        std::string symbol_;        // Symbol of the stock.
     public:
-        Share(string sym, float va, int vo, long ti); // Constructor
-        void setValues(string sym, float va, int vo, long ti); // Setter
+        Share(std::string sym, float va, int vo, long ti); // Constructor
+        void setValues(std::string sym, float va, int vo, long ti); // Setter
         float getBuyPrice();       // Get for "value".
         long  getBuyTime();        // Get for "time".
-        string getSymbol();        // Get for "symbol".
+        std::string getSymbol();        // Get for "symbol".
         int   getBuyVolume();      // Get for "volume".
         void  add_shares(float va, int vo, long ti);
         float sub_shares(float va, int vo, long ti);
