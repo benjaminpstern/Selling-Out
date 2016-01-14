@@ -5,21 +5,25 @@
 #ifndef SHARE_H
 #define SHARE_H
 
+#include <string>
+using namespace std;
+
 class Share
 {
     private:
-        float value;  // Value bought at
-        long  time;   // Time (epoch) bought at.
-        int   date;   // Date (MMDDYYYY) bought at.
-        int   volume; // Number of shares bought.
+        float  value_bought_;  // Value bought at
+        long   time_bought_;   // Time (epoch) bought at.
+        int    volume_bought_; // Number of shares bought.
+        string symbol_;        // Symbol of the stock.
     public:
-        Share(float va, int vo, long ti, int da); // Constructor
-        void setValues(float va, int vo, long ti, int da); // Setter
-        float getReturn(float va); // Return on investment.
+        Share(string sym, float va, int vo, long ti); // Constructor
+        void setValues(string sym, float va, int vo, long ti); // Setter
         float getBuyPrice();       // Get for "value".
         long  getBuyTime();        // Get for "time".
-        int   getBuyDate();        // Get for "date".
+        string getSymbol();        // Get for "symbol".
         int   getBuyVolume();      // Get for "volume".
+        void  add_shares(float va, int vo, long ti);
+        float sub_shares(float va, int vo, long ti);
 };
 
 #endif

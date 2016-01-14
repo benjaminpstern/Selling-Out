@@ -6,39 +6,46 @@
 #include "share.h"
 
 // Member Function Definitions
-Share::Share(float va, int vo, long ti, int da){
-    setValues(va, vo, ti, da);
+Share::Share(string sym, float va, int vo, long ti){
+    setValues(sym, va, vo, ti);
 }
 
-void Share::setValues(float va, int vo, long ti, int da){
-    value = va;
-    volume = vo;
-    time = ti;
-    date = da;
+void Share::setValues(string sym, float va, int vo, long ti){
+    symbol_ = sym;
+    value_bought_ = va;
+    volume_bought_ = vo;
+    time_bought_ = ti;
+}
+
+void Share::add_shares(float va, int vo, long ti){
+    value_bought_ = va;
+    volume_bought_ += vo;
+    time_bought_ = ti;
+}
+
+float Share::sub_shares(float va, int vo, long ti){
+    volume_bought_ -= vo;
+    time_bought_ = ti;
+    return va*vo;
 }
 
 // Getter Functions
 float Share::getBuyPrice( void ){
-    return value;
+    return value_bought_;
 }
 long Share::getBuyTime( void ){
-    return time;
+    return time_bought_;
 }
 int Share::getBuyVolume( void ){
-    return volume;
+    return volume_bought_;
 }
-int Share::getBuyDate( void ){
-    return date;
-}
-
-// Return on investment
-float Share::getReturn( float va ){
-    return volume * (va - value);
+string Share::getSymbol( void ){
+    return symbol_;
 }
 
 int main(){
-    Share share(0.01,100,1452632425,01112016);
+    Share share("LOL",0.01,100,1452632425);
     printf("Old Price: %f\n",share.getBuyPrice());
     printf("New Price: %f\n",.76);
-    printf("Selling for a return of: %f\n",share.getReturn(0.76));
+    printf("Selling for a return of: %f\n",share.sub_shares(.76,100,1452632466));
 }
