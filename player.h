@@ -25,6 +25,9 @@ class Player
     public:
         Player(StockAlgorithm pa, float starting_funds);
         void execute_trades(const std::map<std::string, float>, long time);
+        float get_current_funds() { return current_funds_; }
+        float get_starting_funds() { return starting_funds_; }
+        std::map<std::string, Share> get_portfolio() { return portfolio_; }
 
     private:
         StockAlgorithm player_algorithm_;
