@@ -20,10 +20,11 @@
 class StockAlgorithm
 {
     public:
-        virtual std::vector<Share>** actions(
+        virtual std::vector<Share>* actions(
                 const std::map<std::string, float> prices,
                 float current_funds,
-                const std::map<std::string, Share> portfolio);
+                const std::map<std::string, Share> portfolio,
+                long time);
 };
 
 #endif
