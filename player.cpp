@@ -2,14 +2,14 @@
 #include "player.h"
 #endif
 
-Player::Player(StockAlgorithm pa, float starting_funds) : portfolio_() {
+Player::Player(StockAlgorithm* pa, float starting_funds) : portfolio_() {
     player_algorithm_ = pa;
     starting_funds_ = starting_funds;
     current_funds_ = starting_funds_;
 }
 
 void Player::execute_trades(const std::map<std::string, float> prices, long time) {
-    std::vector<Share>* trades = player_algorithm_.actions(prices, current_funds_, portfolio_, time);
+    std::vector<Share>* trades = player_algorithm_->actions(prices, current_funds_, portfolio_, time);
     std::vector<Share> buys = trades[0];
     std::vector<Share> sells = trades[1];
     for (std::vector<Share>::size_type i = 0; i < buys.size(); ++i) {
@@ -21,6 +21,7 @@ void Player::execute_trades(const std::map<std::string, float> prices, long time
         float price = prices.find(sell_share.getSymbol())->second;
         sell(sell_share, price);
     }
+    delete[] trades;
 }
 
 void Player::buy(std::string symbol, int num_shares, float cost_per_share, long time) {

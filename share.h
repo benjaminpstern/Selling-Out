@@ -2,6 +2,10 @@
 * Header for declaration of the share class.
 */
 
+#ifndef IOSTREAM
+#include <iostream>
+#endif
+
 #ifndef SHARE_H
 #define SHARE_H
 
@@ -26,4 +30,11 @@ class Share
         float sub_shares(float va, int vo, long ti);
 };
 
+/*
+ * for printing Shares.
+ */
+
+inline std::ostream& operator<<(std::ostream &strm, Share s) {
+      return strm << s.getBuyVolume() << " Shares of " << s.getSymbol() << " bought for " << s.getBuyPrice() << " each";
+}
 #endif

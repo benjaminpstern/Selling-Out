@@ -24,7 +24,9 @@ class StockAlgorithm
                 const std::map<std::string, float> prices,
                 float current_funds,
                 const std::map<std::string, Share> portfolio,
-                long time);
+                long time) = 0;
+        ~StockAlgorithm() {
+        }
 };
 
 #endif

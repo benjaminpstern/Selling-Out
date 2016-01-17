@@ -11,7 +11,7 @@ class Manager {
     public:
 
     private:
-}
+};
 
 
 int main(int argc, char *argv[]){

@@ -4,11 +4,13 @@
 
 TEST(PlayerTest, BuyTest) { 
     TestAlgorithm test;
-    Player player(test, 10000);
+    Player player(&test, 10000);
     std::map<std::string, float> prices;
     prices["a"] = 100;
     prices["b"] = 10;
     long time = 5;
+    ASSERT_EQ(player.get_current_funds(), 10000);
+    ASSERT_EQ(player.get_starting_funds(), 10000);
     player.execute_trades(prices, time);
     ASSERT_EQ(player.get_current_funds(), 0);
     ASSERT_EQ(player.get_starting_funds(), 10000);
