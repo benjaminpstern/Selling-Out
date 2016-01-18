@@ -16,13 +16,15 @@ TEST(PlayerTest, BuyTest) {
     ASSERT_EQ(player.get_starting_funds(), 10000);
     std::map<std::string, Share> portfolio = player.get_portfolio();
     ASSERT_EQ(portfolio.size(), 1);
+
+    prices["b"] = 101;
+    time++;
+    player.execute_trades(prices, time);
+    ASSERT_EQ(player.get_current_funds(), 101000);
+    portfolio = player.get_portfolio();
+    ASSERT_EQ(portfolio.size(), 0);
 }
-/*
-TEST(SquareRootTest, NegativeNos) {
-    ASSERT_EQ(-1.0, squareRoot(-15.0));
-    ASSERT_EQ(-1.0, squareRoot(-0.2));
-}
-*/
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

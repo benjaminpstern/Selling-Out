@@ -25,6 +25,9 @@ void Player::execute_trades(const std::map<std::string, float> prices, long time
 }
 
 void Player::buy(std::string symbol, int num_shares, float cost_per_share, long time) {
+    if (!num_shares) {
+        return;
+    }
     float cost = num_shares * cost_per_share;
     current_funds_ -= cost;
     std::map<string, Share>::iterator cur_share_iter = portfolio_.find(symbol);
@@ -47,6 +50,9 @@ void Player::sell(std::string symbol, int num_shares, float cost_per_share, long
     if (cur_share_iter != portfolio_.end()) {
         Share cur_share = cur_share_iter->second;
         cur_share.sub_shares(cost_per_share, num_shares, time);
+        if (cur_share.getBuyVolume() == 0) {
+            portfolio_.erase(symbol);
+        }
         current_funds_ += num_shares * cost_per_share;
     }
 }
