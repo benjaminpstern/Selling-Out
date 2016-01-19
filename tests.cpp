@@ -56,6 +56,25 @@ TEST(ManagerTest, AssetsTest) {
     ASSERT_EQ(assets, 10020);
 }
 
+TEST(ManagerTest, ParseTestTime) {
+    Manager manager(0, 0);
+    manager.parse_line_feed("1420520460,Jell:81.3100000,Prisons:12.8600000,Armchair:230.1523800");
+    long time = manager.get_time();
+    ASSERT_EQ(time, 1420520460);
+}
+TEST(ManagerTest, ParseTestPrices) {
+    Manager manager(0, 0);
+    manager.parse_line_feed("1420520460,Jell:81.3100000,Prisons:12.8600000,Armchair:230.1523800");
+    std::map<string, float> prices = manager.get_prices();
+    float JellPrice = prices["Jell"];
+    ASSERT_FLOAT_EQ(JellPrice, 81.31);
+    float PrisonsPrice = prices["Prisons"];
+    ASSERT_FLOAT_EQ(PrisonsPrice, 12.86);
+    float ArmchairPrice = prices["Armchair"];
+    ASSERT_FLOAT_EQ(ArmchairPrice, 230.15238);
+    ASSERT_EQ(prices.size(), 3);
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

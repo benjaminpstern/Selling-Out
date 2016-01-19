@@ -13,10 +13,47 @@ void Manager::progress_one_timestep(void) {
 }
 void Manager::progress_player(PlayerInterface& player) {
 }
+
+std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
+}
+
 void Manager::parse_line_feed(string feed) {
+    std::vector<std::string> feed_split = split(feed, ',');
+    string time_str = feed_split[0];
+    stringstream ss(time_str);
+    ss >> current_time_;
+
+    for (std::vector<std::string>::size_type i = 1; i < feed_split.size(); ++i) {
+        std::vector<std::string> pair = split(feed_split[i], ':');
+        string name = pair[0];
+        string value_str = pair[1];
+        stringstream floatconverter(value_str);
+        float value;
+        floatconverter >> value;
+        prices_[name] = value;
+    }
 }
 void Manager::set_prices(std::map<std::string, float> prices) {
     prices_ = prices;
+}
+const std::map<std::string, float>& Manager::get_prices(void) {
+    return prices_;
+}
+long Manager::get_time(void) {
+    return current_time_;
 }
 float Manager::get_assets(PlayerInterface& player) {
     std::map<string, Share> player_shares = player.get_portfolio();
