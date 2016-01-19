@@ -3,6 +3,9 @@
 #include <gmock/gmock.h>
 #include "test_algorithm.h"
 #include "management.h"
+#ifndef PLAYER_INT
+#include "player_interface.h"
+#endif
 
 using ::testing::Return;
 TEST(PlayerTest, BuyTest) {
@@ -28,11 +31,13 @@ TEST(PlayerTest, BuyTest) {
     ASSERT_EQ(portfolio.size(), 0);
 }
 
-class MockPlayer : public Player {
+class MockPlayer : public PlayerInterface {
     public:
-        MockPlayer() : Player(NULL, 0) {}
+        MockPlayer() {}
         MOCK_METHOD0(get_portfolio, std::map<string, Share>());
         MOCK_METHOD0(get_current_funds, float());
+        MOCK_METHOD0(get_starting_funds, float());
+        MOCK_METHOD2(execute_trades, void(const std::map<string, float>, long));
 };
 
 TEST(ManagerTest, AssetsTest) {
@@ -47,8 +52,8 @@ TEST(ManagerTest, AssetsTest) {
     std::map<string, float> prices;
     prices["a"] = 100;
     manager.set_prices(prices);
-    float assets = manager.get_assets((Player&)player_mock);
-    ASSERT_EQ(assets, 10000);
+    float assets = manager.get_assets(player_mock);
+    ASSERT_EQ(assets, 10020);
 }
 
 int main(int argc, char **argv) {

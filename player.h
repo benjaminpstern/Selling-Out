@@ -18,9 +18,13 @@
 #include "share.h"
 #endif
 
+#ifndef PLAYER_INT
+#include "player_interface.h"
+#endif
+
 #ifndef PLAYER_H
 #define PLAYER_H
-class Player
+class Player : public PlayerInterface
 {
     public:
         Player(StockAlgorithm* pa, float starting_funds);

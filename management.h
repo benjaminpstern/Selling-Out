@@ -20,7 +20,7 @@ class Manager {
         Manager(float rate_of_exchange, float cost_of_exchange);
         void progress_one_timestep(void);
         void set_prices(std::map<std::string, float> prices);
-        float get_assets(Player& player);
+        float get_assets(PlayerInterface& player);
         
 
     private:
@@ -30,6 +30,6 @@ class Manager {
         float rate_of_exchange_;
         long current_time_;
         string current_filename_;
-        void progress_player(Player player);
+        void progress_player(PlayerInterface& player);
         void parse_line_feed(string feed);
 };

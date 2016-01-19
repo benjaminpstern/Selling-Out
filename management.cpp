@@ -11,14 +11,14 @@ Manager::Manager(float rate_of_exchange, float cost_of_exchange) {
 }
 void Manager::progress_one_timestep(void) {
 }
-void Manager::progress_player(Player player) {
+void Manager::progress_player(PlayerInterface& player) {
 }
 void Manager::parse_line_feed(string feed) {
 }
 void Manager::set_prices(std::map<std::string, float> prices) {
     prices_ = prices;
 }
-float Manager::get_assets(Player& player) {
+float Manager::get_assets(PlayerInterface& player) {
     std::map<string, Share> player_shares = player.get_portfolio();
     float player_funds = player.get_current_funds();
     float share_values = 0;
