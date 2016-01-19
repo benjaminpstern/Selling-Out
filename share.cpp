@@ -43,9 +43,10 @@ string Share::getSymbol( void ){
     return symbol_;
 }
 
+/*
 int main(){
     Share share("LOL",0.01,100,1452632425);
     printf("Old Price: %f\n",share.getBuyPrice());
     printf("New Price: %f\n",.76);
     printf("Selling for a return of: %f\n",share.sub_shares(.76,100,1452632466));
-}
+}*/
