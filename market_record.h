@@ -8,18 +8,21 @@
 class Market_Record
 {
     private:
-        float[] hour_data_;
-        float[] week_data_;
+        float* hour_data_;
+        float* week_data_;
         double  last_value_;
         double  current_value_;
 
     public:
-        float[] get_hour_data();
-        float[] get_week_data();
-        void    set_hour_data( float[] data_);
-        void    set_week_data( float [] w_data_);
+        Market_Record();
+        float*  get_hour_data();
+        float*  get_week_data();
+        void    set_hour_data( float* h_data_ );
+        void    set_week_data( float* w_data_ );
         double  get_last_value();
         double  get_current_value();
         void    set_last_value( double val );
         void    set_current_value( double val);
 };
+
+#endif
