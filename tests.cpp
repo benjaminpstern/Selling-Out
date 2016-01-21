@@ -75,6 +75,17 @@ TEST(ManagerTest, ParseTestPrices) {
     ASSERT_EQ(prices.size(), 3);
 }
 
+TEST(ManagerTest, TestIntegration) {
+    TestAlgorithm test;
+    Player player(&test, 10000);
+    Manager manager(0, 0);
+    manager.add_player(&player);
+    while (!manager.eof() && manager.file_num() < 3) {
+        manager.progress_one_timestep();
+    }
+    ASSERT_FLOAT_EQ(manager.get_assets(player), 10160.188);
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

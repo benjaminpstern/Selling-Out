@@ -23,6 +23,10 @@
 #include <sstream>
 #endif
 
+#ifndef FSTREAM
+#include <fstream>
+#endif
+
 #ifndef VECTOR
 #include <vector>
 #endif
@@ -36,14 +40,20 @@ class Manager {
         const std::map<std::string, float>& get_prices(void);
         long get_time(void);
         void parse_line_feed(std::string feed);
-        
+        bool eof(void);
+        void add_player(PlayerInterface* player_ptr);
+        int file_num();
 
     private:
-        Player* players_;
+        std::vector<PlayerInterface*> players_;
         std::map<std::string, float> prices_;
         float cost_of_exchange_;
         float rate_of_exchange_;
         long current_time_;
-        std::string current_filename_;
+        int current_filenum_;
+        int current_linenum_;
+        std::ifstream current_fstream_;
         void progress_player(PlayerInterface& player);
+        std::string get_line();
+        bool eof_;
 };
