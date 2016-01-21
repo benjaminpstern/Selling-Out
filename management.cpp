@@ -14,19 +14,15 @@ Manager::Manager(float rate_of_exchange, float cost_of_exchange) : players_(), p
     eof_ = false;
 }
 void Manager::progress_one_timestep(void) {
-    if (eof()) {
-        return;
-    }
     string next_line = get_line();
-    if (next_line == "") {
-        eof_ = true;
-        return;
-    }
-    parse_line_feed(get_line());
-    for (std::vector<PlayerInterface*>::size_type iter = 0; iter < players_.size(); ++iter) {
-        progress_player(*players_[iter]);
+    if (!eof()) {
+        parse_line_feed(get_line());
+        for (std::vector<PlayerInterface*>::size_type iter = 0; iter < players_.size(); ++iter) {
+            progress_player(*players_[iter]);
+        }
     }
 }
+
 void Manager::progress_player(PlayerInterface& player) {
     player.execute_trades(prices_, current_time_);
 }
@@ -52,6 +48,10 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 void Manager::parse_line_feed(string feed) {
     std::vector<std::string> feed_split = split(feed, ',');
+    if (!feed_split.size()) {
+        eof_ = true;
+        return;
+    }
     string time_str = feed_split[0];
     stringstream ss(time_str);
     ss >> current_time_;
@@ -89,6 +89,9 @@ float Manager::get_assets(PlayerInterface& player) {
 }
 
 std::string Manager::get_line() {
+    if (eof()) {
+        return "";
+    }
     std::string line;
     bool status = current_fstream_ >> line;
     if (!status) {
@@ -99,9 +102,13 @@ std::string Manager::get_line() {
         if(current_filenum_ < 50) {
             current_fstream_.open(new_filename, std::ifstream::in);
             current_filenum_++;
-            current_fstream_ >> line;
+            current_linenum_ = 0;
+            if (!(current_fstream_ >> line)) {
+                std::cout << "bad" << endl;
+            }
         }
         else {
+            eof_ = true;
             return "";
         }
     }
@@ -111,4 +118,8 @@ std::string Manager::get_line() {
 
 void Manager::add_player(PlayerInterface* player_ptr) {
     players_.push_back(player_ptr);
+}
+
+int Manager::file_num() {
+    return current_filenum_;
 }

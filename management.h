@@ -42,6 +42,7 @@ class Manager {
         void parse_line_feed(string feed);
         bool eof(void);
         void add_player(PlayerInterface* player_ptr);
+        int file_num();
 
 
     private:

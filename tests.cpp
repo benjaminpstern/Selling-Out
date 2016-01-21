@@ -80,14 +80,10 @@ TEST(ManagerTest, TestIntegration) {
     Player player(&test, 10000);
     Manager manager(0, 0);
     manager.add_player(&player);
-    int time = 0;
-    while (!manager.eof()) {
+    while (!manager.eof() && manager.file_num() < 3) {
         manager.progress_one_timestep();
-        ++time;
-        if (time % 1000 == 0) {
-            std::cout << manager.get_assets(player) << endl;
-        }
     }
+    ASSERT_FLOAT_EQ(manager.get_assets(player), 10160.188);
 }
 
 int main(int argc, char **argv) {
