@@ -19,9 +19,9 @@ class TestAlgorithm : public StockAlgorithm {
             std::vector<Share> buy;
             std::vector<Share> sell;
             float lowest_price = 1000000;
-            string lowest_price_symbol = "";
+            std::string lowest_price_symbol = "";
             for (std::map<std::string, float>::const_iterator iter = prices.begin(); iter != prices.end(); ++iter) {
-                string symbol = iter->first;
+                std::string symbol = iter->first;
                 float price = prices.at(symbol);
                 if (price < lowest_price) {
                     lowest_price = price;
@@ -30,7 +30,7 @@ class TestAlgorithm : public StockAlgorithm {
             }
             Share buy_share(lowest_price_symbol, lowest_price, current_funds/lowest_price, time);
             for (std::map<std::string, Share>::const_iterator iter = portfolio.begin(); iter != portfolio.end(); ++iter) {
-                string symbol = iter->first;
+                std::string symbol = iter->first;
                 Share share = portfolio.at(symbol);
                 float old_price = share.getBuyPrice();
                 float current_price = prices.at(symbol);

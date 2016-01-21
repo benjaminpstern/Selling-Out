@@ -6,11 +6,11 @@
 #include "share.h"
 
 // Member Function Definitions
-Share::Share(string sym, float va, int vo, long ti){
+Share::Share(std::string sym, float va, int vo, long ti){
     setValues(sym, va, vo, ti);
 }
 
-void Share::setValues(string sym, float va, int vo, long ti){
+void Share::setValues(std::string sym, float va, int vo, long ti){
     symbol_ = sym;
     value_bought_ = va;
     volume_bought_ = vo;
@@ -39,7 +39,7 @@ long Share::getBuyTime( void ){
 int Share::getBuyVolume( void ){
     return volume_bought_;
 }
-string Share::getSymbol( void ){
+std::string Share::getSymbol( void ){
     return symbol_;
 }
 

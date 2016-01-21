@@ -39,11 +39,10 @@ class Manager {
         float get_assets(PlayerInterface& player);
         const std::map<std::string, float>& get_prices(void);
         long get_time(void);
-        void parse_line_feed(string feed);
+        void parse_line_feed(std::string feed);
         bool eof(void);
         void add_player(PlayerInterface* player_ptr);
         int file_num();
-
 
     private:
         std::vector<PlayerInterface*> players_;
