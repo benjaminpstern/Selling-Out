@@ -1,7 +1,7 @@
 # Makefile for Selling Out.
 
 # Compiler and Flags.
-CC=clang++
+CC=g++
 CFLAGS=-g -std=c++11
 
 TARGETS=share.o player.o management.o runTests

@@ -34,22 +34,22 @@ TEST(PlayerTest, BuyTest) {
 class MockPlayer : public PlayerInterface {
     public:
         MockPlayer() {}
-        MOCK_METHOD0(get_portfolio, std::map<string, Share>());
+        MOCK_METHOD0(get_portfolio, std::map<std::string, Share>());
         MOCK_METHOD0(get_current_funds, float());
         MOCK_METHOD0(get_starting_funds, float());
-        MOCK_METHOD2(execute_trades, void(const std::map<string, float>, long));
+        MOCK_METHOD2(execute_trades, void(const std::map<std::string, float>, long));
 };
 
 TEST(ManagerTest, AssetsTest) {
     MockPlayer player_mock;
-    std::map<string, Share> portfolio;
+    std::map<std::string, Share> portfolio;
     Share share("a", 10, 100, 1);
-    std::pair<string, Share> pair("a", share);
+    std::pair<std::string, Share> pair("a", share);
     portfolio.insert(pair);
     EXPECT_CALL(player_mock, get_portfolio()).WillOnce(Return(portfolio));
     EXPECT_CALL(player_mock, get_current_funds()).WillOnce(Return(20));
     Manager manager(0, 0);
-    std::map<string, float> prices;
+    std::map<std::string, float> prices;
     prices["a"] = 100;
     manager.set_prices(prices);
     float assets = manager.get_assets(player_mock);
@@ -65,7 +65,7 @@ TEST(ManagerTest, ParseTestTime) {
 TEST(ManagerTest, ParseTestPrices) {
     Manager manager(0, 0);
     manager.parse_line_feed("1420520460,Jell:81.3100000,Prisons:12.8600000,Armchair:230.1523800");
-    std::map<string, float> prices = manager.get_prices();
+    std::map<std::string, float> prices = manager.get_prices();
     float JellPrice = prices["Jell"];
     ASSERT_FLOAT_EQ(JellPrice, 81.31);
     float PrisonsPrice = prices["Prisons"];

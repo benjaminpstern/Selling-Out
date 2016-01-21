@@ -30,17 +30,17 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-void Manager::parse_line_feed(string feed) {
+void Manager::parse_line_feed(std::string feed) {
     std::vector<std::string> feed_split = split(feed, ',');
-    string time_str = feed_split[0];
-    stringstream ss(time_str);
+   std::string time_str = feed_split[0];
+   std::stringstream ss(time_str);
     ss >> current_time_;
 
     for (std::vector<std::string>::size_type i = 1; i < feed_split.size(); ++i) {
         std::vector<std::string> pair = split(feed_split[i], ':');
-        string name = pair[0];
-        string value_str = pair[1];
-        stringstream floatconverter(value_str);
+       std::string name = pair[0];
+       std::string value_str = pair[1];
+       std::stringstream floatconverter(value_str);
         float value;
         floatconverter >> value;
         prices_[name] = value;
@@ -56,12 +56,12 @@ long Manager::get_time(void) {
     return current_time_;
 }
 float Manager::get_assets(PlayerInterface& player) {
-    std::map<string, Share> player_shares = player.get_portfolio();
+    std::map<std::string, Share> player_shares = player.get_portfolio();
     float player_funds = player.get_current_funds();
     float share_values = 0;
-    for (std::map<string, Share>::iterator iter = player_shares.begin(); iter != player_shares.end(); ++iter) {
+    for (std::map<std::string, Share>::iterator iter = player_shares.begin(); iter != player_shares.end(); ++iter) {
         Share share = (*iter).second;
-        string symbol = share.getSymbol();
+        std::string symbol = share.getSymbol();
         float price = prices_.at(symbol);
         share_values += price * share.getBuyVolume();
     }

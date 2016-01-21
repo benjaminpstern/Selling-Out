@@ -35,7 +35,7 @@ class Manager {
         float get_assets(PlayerInterface& player);
         const std::map<std::string, float>& get_prices(void);
         long get_time(void);
-        void parse_line_feed(string feed);
+        void parse_line_feed(std::string feed);
         
 
     private:
@@ -44,6 +44,6 @@ class Manager {
         float cost_of_exchange_;
         float rate_of_exchange_;
         long current_time_;
-        string current_filename_;
+        std::string current_filename_;
         void progress_player(PlayerInterface& player);
 };
