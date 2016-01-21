@@ -14,7 +14,7 @@ Manager::Manager(float rate_of_exchange, float cost_of_exchange) : players_(), p
     eof_ = false;
 }
 void Manager::progress_one_timestep(void) {
-    string next_line = get_line();
+    std::string next_line = get_line();
     if (!eof()) {
         parse_line_feed(get_line());
         for (std::vector<PlayerInterface*>::size_type iter = 0; iter < players_.size(); ++iter) {
@@ -93,10 +93,9 @@ std::string Manager::get_line() {
         return "";
     }
     std::string line;
-    bool status = current_fstream_ >> line;
-    if (!status) {
+    if (!(current_fstream_ >> line)) {
         current_fstream_.close();
-        string new_filename = "dataFiles/chunk";
+        std::string new_filename = "dataFiles/chunk";
         new_filename += std::to_string(current_filenum_);
         new_filename += ".data";
         if(current_filenum_ < 50) {
@@ -104,7 +103,7 @@ std::string Manager::get_line() {
             current_filenum_++;
             current_linenum_ = 0;
             if (!(current_fstream_ >> line)) {
-                std::cout << "bad" << endl;
+                return "";
             }
         }
         else {
