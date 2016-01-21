@@ -75,6 +75,21 @@ TEST(ManagerTest, ParseTestPrices) {
     ASSERT_EQ(prices.size(), 3);
 }
 
+TEST(ManagerTest, TestIntegration) {
+    TestAlgorithm test;
+    Player player(&test, 10000);
+    Manager manager(0, 0);
+    manager.add_player(&player);
+    int time = 0;
+    while (!manager.eof()) {
+        manager.progress_one_timestep();
+        ++time;
+        if (time % 1000 == 0) {
+            std::cout << manager.get_assets(player) << endl;
+        }
+    }
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
