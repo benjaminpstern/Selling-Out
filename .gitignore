@@ -1,1 +1,7 @@
 *.swp
+*.o
+*.a
+log
+player
+runTests
+share
