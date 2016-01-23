@@ -17,12 +17,13 @@ class Market_Record
         Market_Record();
         float*  get_hour_data();
         float*  get_week_data();
-        void    set_hour_data( float* h_data_ );
-        void    set_week_data( float* w_data_ );
+        void    set_hour_data( float* h_data );
+        void    set_week_data( float* w_data );
         double  get_last_value();
         double  get_current_value();
         void    set_last_value( double val );
         void    set_current_value( double val);
+        ~Market_Record();
 };
 
 #endif

@@ -6,8 +6,8 @@
 
 // Member Function Definitions
 Market_Record::Market_Record(){
-    hour_data_[60];
-    week_data_[130];
+    hour_data_ = new float[60];
+    week_data_ = new float[130];
     last_value_ = 0;
     current_value_ = 0;
 }
@@ -27,12 +27,12 @@ double Market_Record::get_current_value(){
     return current_value_;
 }
 
-void Market_Record::set_hour_data( float* h_data_ ){
-    hour_data_ = h_data_;
+void Market_Record::set_hour_data( float* h_data ){
+    hour_data_ = h_data;
 }
 
-void Market_Record::set_week_data (float* w_data_){
-    week_data_ = w_data_;
+void Market_Record::set_week_data (float* w_data){
+    week_data_ = w_data;
 }
 
 void Market_Record::set_last_value(double val){
@@ -41,4 +41,9 @@ void Market_Record::set_last_value(double val){
 
 void Market_Record::set_current_value(double val){
     current_value_ = val;
+}
+
+Market_Record::~Market_Record() {
+    delete[] hour_data_;
+    delete[] week_data_;
 }
