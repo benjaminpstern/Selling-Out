@@ -5,17 +5,15 @@
 #include "market_record.h"
 
 // Member Function Definitions
-Market_Record::Market_Record(){
-    hour_data_ = new float[60];
-    week_data_ = new float[130];
+Market_Record::Market_Record() : hour_data_(60,0), week_data_(130,0) {
     last_value_ = 0;
     current_value_ = 0;
 }
 
-float* Market_Record::get_hour_data( void ){
+std::vector<float> Market_Record::get_hour_data( void ){
     return hour_data_;
 }
-float* Market_Record::get_week_data( void ){
+std::vector<float> Market_Record::get_week_data( void ){
     return week_data_;
 }
 
@@ -27,11 +25,11 @@ double Market_Record::get_current_value(){
     return current_value_;
 }
 
-void Market_Record::set_hour_data( float* h_data ){
+void Market_Record::set_hour_data( std::vector<float> h_data ){
     hour_data_ = h_data;
 }
 
-void Market_Record::set_week_data (float* w_data){
+void Market_Record::set_week_data (std::vector<float> w_data){
     week_data_ = w_data;
 }
 

@@ -44,12 +44,13 @@ class StartingAlgorithm : public StockAlgorithm {
             return buy_and_sell;
         }
         StartingAlgorithm();
+        StartingAlgorithm( double buy_point, double sell_point, double volume_ratio );
 
     private:
         map<string, Market_Record> symbol_records_;
-        const double metric_hard_buy_point_;
-        const double metric_hard_sell_point_;
-        const double buy_price_volume_ratio_;
+        double metric_hard_buy_point_;
+        double metric_hard_sell_point_;
+        double buy_price_volume_ratio_;
         
         // TODO:
         void update_metric(

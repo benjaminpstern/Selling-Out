@@ -6,10 +6,27 @@
 #include "starting_algorithm.h"
 
 // Constructors, Setting, Getting
-StartingAlgorithm::StartingAlgorithm( void ) : symbol_records_() {
-    metric_hard_buy_point_ = 10.0;
-    metric_hard_sell_point_ = 0.0;
-    buy_price_volume_ratio_ = 0.3; 
+
+StartingAlgorithm::StartingAlgorithm( double buy_point, double sell_point, double volume_ratio ) : symbol_records_() {
+    metric_hard_buy_point_ = buy_point;
+    metric_hard_sell_point_ = sell_point;
+    buy_price_volume_ratio_ = volume_ratio;
 }
 
+StartingAlgorithm::StartingAlgorithm( void ) {
+    StartingAlgorithm( 10.0, 0.0, 0.3);
+}
 
+// Metric Math
+void StartingAlgorithm::update_metric( 
+    Market_Record record,
+    float funds,
+    float price_update,
+    std::map<std::string, Share> portfolio,
+    long time)
+{
+    // Update Record, shift appropriate datasets
+    week_data = record.get_week_data();
+    hour_data = record.get_hour_data();
+
+}

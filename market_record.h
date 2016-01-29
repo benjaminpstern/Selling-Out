@@ -5,20 +5,22 @@
 #ifndef MARKET_H
 #define MARKET_H
 
+#include <vector>
+
 class Market_Record
 {
     private:
-        float* hour_data_;
-        float* week_data_;
+        std::vector<float> hour_data_;
+        std::vector<float>  week_data_;
         double  last_value_;
         double  current_value_;
 
     public:
         Market_Record();
-        float*  get_hour_data();
-        float*  get_week_data();
-        void    set_hour_data( float* h_data );
-        void    set_week_data( float* w_data );
+        std::vector<float>  get_hour_data();
+        std::vector<float>  get_week_data();
+        void    set_hour_data( std::vector<float> h_data );
+        void    set_week_data( std::vector<float> w_data );
         double  get_last_value();
         double  get_current_value();
         void    set_last_value( double val );
