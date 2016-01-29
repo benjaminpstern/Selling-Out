@@ -26,12 +26,12 @@ class StartingAlgorithm : public StockAlgorithm {
             for (std::map<std::string, float>::const_iterator iter = prices.begin(); iter != prices.end(); ++iter) {
                 std::string symbol = iter->first;
                 float price = prices.at(symbol);
-                this.update_metric( symbol_records_.at(symbol), current_funds, price, portfolio, time);
-                if( this.consider_sell_share( symbol_records_.at(symbol) ) ) {
+                this->update_metric( symbol_records_.at(symbol), current_funds, price, portfolio, time);
+                if( this->consider_sell_share( symbol_records_.at(symbol) ) ) {
                     Share sellable_share = portfolio.at(symbol);
                     sell.push_back( sellable_share );
-                } else if( this.consider_buy_share( symbol_records_.at(symbol) ) ) {
-                    int recommended_volume = this.recommend_buy_volume( symbol_records_.at(symbol), current_funds );
+                } else if( this->consider_buy_share( symbol_records_.at(symbol) ) ) {
+                    int recommended_volume = this->recommend_buy_volume( symbol_records_.at(symbol), current_funds );
                     Share buy_share( symbol, price, recommended_volume, time);
                     buy.push_back( buy_share );
                 }
@@ -53,11 +53,11 @@ class StartingAlgorithm : public StockAlgorithm {
             Market_Record record,
             float funds,
             float price_update,
-            Share portfolio,
+            std::map<std::string, Share> portfolio,
             long time);
         float calculate_volatility(Market_Record record);
         float calculate_growth(Market_Record record);
-        int   recommend_buy_volume( Share buy_share, float current_funds );
+        int   recommend_buy_volume( Market_Record record, float current_funds );
 
         bool  consider_sell_share(Market_Record share_record){
             if( share_record.get_current_value() > metric_hard_buy_point_ ) return true;
