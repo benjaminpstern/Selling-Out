@@ -6,22 +6,26 @@
 #include <iostream>
 #endif
 
+using std::string;
+using std::map;
+using std::vector;
+
 class TestAlgorithm : public StockAlgorithm {
     public:
-        std::vector<Share>* actions(
-            const std::map<std::string, float> prices,
-            float current_funds,
-            const std::map<std::string, Share> portfolio,
-            long time) 
+        vector<Share>* actions(
+                const map<string, float> prices,
+                float current_funds,
+                const map<string, Share> portfolio,
+                long time)
         {
             float threshold = 1.15;
-            std::vector<Share>* buy_and_sell = new std::vector<Share>[2];
-            std::vector<Share> buy;
-            std::vector<Share> sell;
+            vector<Share>* buy_and_sell = new vector<Share>[2];
+            vector<Share> buy;
+            vector<Share> sell;
             float lowest_price = 1000000;
-            std::string lowest_price_symbol = "";
-            for (std::map<std::string, float>::const_iterator iter = prices.begin(); iter != prices.end(); ++iter) {
-                std::string symbol = iter->first;
+            string lowest_price_symbol = "";
+            for (map<string, float>::const_iterator iter = prices.begin(); iter != prices.end(); ++iter) {
+                string symbol = iter->first;
                 float price = prices.at(symbol);
                 if (price < lowest_price) {
                     lowest_price = price;
@@ -29,8 +33,8 @@ class TestAlgorithm : public StockAlgorithm {
                 }
             }
             Share buy_share(lowest_price_symbol, lowest_price, current_funds/lowest_price, time);
-            for (std::map<std::string, Share>::const_iterator iter = portfolio.begin(); iter != portfolio.end(); ++iter) {
-                std::string symbol = iter->first;
+            for (map<string, Share>::const_iterator iter = portfolio.begin(); iter != portfolio.end(); ++iter) {
+                string symbol = iter->first;
                 Share share = portfolio.at(symbol);
                 float old_price = share.getBuyPrice();
                 float current_price = prices.at(symbol);

@@ -8,15 +8,15 @@ Player::Player(StockAlgorithm* pa, float starting_funds) : portfolio_() {
     current_funds_ = starting_funds_;
 }
 
-void Player::execute_trades(const std::map<std::string, float> prices, long time) {
-    std::vector<Share>* trades = player_algorithm_->actions(prices, current_funds_, portfolio_, time);
-    std::vector<Share> buys = trades[0];
-    std::vector<Share> sells = trades[1];
-    for (std::vector<Share>::size_type i = 0; i < buys.size(); ++i) {
+void Player::execute_trades(const map<string, float> prices, long time) {
+    vector<Share>* trades = player_algorithm_->actions(prices, current_funds_, portfolio_, time);
+    vector<Share> buys = trades[0];
+    vector<Share> sells = trades[1];
+    for (vector<Share>::size_type i = 0; i < buys.size(); ++i) {
         Share buy_share = buys[i];
         buy(buy_share);
     }
-    for (std::vector<Share>::size_type i = 0; i < sells.size(); ++i) {
+    for (vector<Share>::size_type i = 0; i < sells.size(); ++i) {
         Share sell_share = sells[i];
         float price = prices.find(sell_share.getSymbol())->second;
         sell(sell_share, price);
@@ -24,20 +24,20 @@ void Player::execute_trades(const std::map<std::string, float> prices, long time
     delete[] trades;
 }
 
-void Player::buy(std::string symbol, int num_shares, float cost_per_share, long time) {
+void Player::buy(string symbol, int num_shares, float cost_per_share, long time) {
     if (!num_shares) {
         return;
     }
     float cost = num_shares * cost_per_share;
     current_funds_ -= cost;
-    std::map<std::string, Share>::iterator cur_share_iter = portfolio_.find(symbol);
+    map<string, Share>::iterator cur_share_iter = portfolio_.find(symbol);
     if (cur_share_iter != portfolio_.end()) {
         Share cur_share = cur_share_iter->second;
         cur_share.add_shares(cost_per_share, num_shares, time);
     }
     else {
         Share shares(symbol, cost_per_share, num_shares, time);
-        portfolio_.insert(std::pair<std::string, Share>(symbol, shares));
+        portfolio_.insert(pair<string, Share>(symbol, shares));
     }
 }
 
@@ -45,8 +45,8 @@ void Player::buy(Share buy_share) {
     buy(buy_share.getSymbol(), buy_share.getBuyVolume(), buy_share.getBuyPrice(), buy_share.getBuyTime());
 }
 
-void Player::sell(std::string symbol, int num_shares, float cost_per_share, long time) {
-    std::map<std::string, Share>::iterator cur_share_iter = portfolio_.find(symbol);
+void Player::sell(string symbol, int num_shares, float cost_per_share, long time) {
+    map<string, Share>::iterator cur_share_iter = portfolio_.find(symbol);
     if (cur_share_iter != portfolio_.end()) {
         Share cur_share = cur_share_iter->second;
         cur_share.sub_shares(cost_per_share, num_shares, time);

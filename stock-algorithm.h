@@ -17,13 +17,16 @@
 #ifndef STOCK_ALGORITHM_H
 #define STOCK_ALGORITHM_H
 
+using std::string;
+using std::map;
+using std::vector;
 class StockAlgorithm
 {
     public:
-        virtual std::vector<Share>* actions(
-                const std::map<std::string, float> prices,
+        virtual vector<Share>* actions(
+                const map<string, float> prices,
                 float current_funds,
-                const std::map<std::string, Share> portfolio,
+                const map<string, Share> portfolio,
                 long time) = 0;
         ~StockAlgorithm() {
         }

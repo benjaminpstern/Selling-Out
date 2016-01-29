@@ -10,20 +10,24 @@
 #include <iostream>
 #endif
 
+using std::string;
+using std::map;
+using std::vector;
 class StartingAlgorithm : public StockAlgorithm {
 
     public:
-        std::vector<Share>* actions(
-            const std::map<std::string, float> prices,
+        vector<Share>* actions(
+            const map<string, float> prices,
             float current_funds,
-            const std::map<std::string, Share> portfolio,
+            const map<string, Share> portfolio,
             long time)
         {
-            std::vector<Share>* buy_and_sell = new std::vector<Share>[2];
-            std::vector<Share> buy;
-            std::vector<Share> sell;
-            for (std::map<std::string, float>::const_iterator iter = prices.begin(); iter != prices.end(); ++iter) {
-                std::string symbol = iter->first;
+
+            vector<Share>* buy_and_sell = new vector<Share>[2];
+            vector<Share> buy;
+            vector<Share> sell;
+            for (map<string, float>::const_iterator iter = prices.begin(); iter != prices.end(); ++iter) {
+                string symbol = iter->first;
                 float price = prices.at(symbol);
                 this->update_metric( symbol_records_.at(symbol), current_funds, price, portfolio, time);
                 if( this->consider_sell_share( symbol_records_.at(symbol) ) ) {
@@ -42,7 +46,7 @@ class StartingAlgorithm : public StockAlgorithm {
         StartingAlgorithm();
 
     private:
-        std::map<std::string, Market_Record> symbol_records_;
+        map<string, Market_Record> symbol_records_;
         const double metric_hard_buy_point_;
         const double metric_hard_sell_point_;
         const double buy_price_volume_ratio_;
@@ -52,7 +56,7 @@ class StartingAlgorithm : public StockAlgorithm {
             Market_Record record,
             float funds,
             float price_update,
-            std::map<std::string, Share> portfolio,
+            map<string, Share> portfolio,
             long time);
         float calculate_volatility(Market_Record record);
         float calculate_growth(Market_Record record);

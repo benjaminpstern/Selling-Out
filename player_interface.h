@@ -20,13 +20,18 @@
 
 #ifndef PLAYER_INT
 #define PLAYER_INT
+
+using std::string;
+using std::map;
+using std::vector;
+
 class PlayerInterface
 {
     public:
-        virtual void execute_trades(const std::map<std::string, float>, long time) = 0;
+        virtual void execute_trades(const map<string, float>, long time) = 0;
         virtual float get_current_funds() = 0;
         virtual float get_starting_funds() = 0;
-        virtual std::map<std::string, Share> get_portfolio() = 0;
+        virtual map<string, Share> get_portfolio() = 0;
         virtual ~PlayerInterface() {}
 };
 

@@ -24,24 +24,30 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
+
+using std::string;
+using std::map;
+using std::vector;
+using std::pair;
+
 class Player : public PlayerInterface
 {
     public:
         Player(StockAlgorithm* pa, float starting_funds);
-        void execute_trades(const std::map<std::string, float>, long time);
+        void execute_trades(const map<string, float>, long time);
         float get_current_funds() { return current_funds_; }
         float get_starting_funds() { return starting_funds_; }
-        std::map<std::string, Share> get_portfolio() { return portfolio_; }
+        map<string, Share> get_portfolio() { return portfolio_; }
 
     private:
         StockAlgorithm* player_algorithm_;
         float starting_funds_;
         float current_funds_;
-        std::map<std::string, Share> portfolio_;
+        map<string, Share> portfolio_;
 
-        void buy(std::string symbol, int num_shares, float cost_per_share, long time);
+        void buy(string symbol, int num_shares, float cost_per_share, long time);
         void buy(Share buy_share);
-        void sell(std::string symbol, int num_shares, float cost_per_share, long time);
+        void sell(string symbol, int num_shares, float cost_per_share, long time);
         void sell(Share sell_share, float price);
 };
 

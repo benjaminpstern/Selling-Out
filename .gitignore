@@ -3,5 +3,6 @@
 *.a
 log
 player
-runTests
+algTests
+infraTests
 share

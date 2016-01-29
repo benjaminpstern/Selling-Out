@@ -8,10 +8,13 @@
 #endif
 
 using ::testing::Return;
+using std::string;
+using std::map;
+using std::vector;
 TEST(PlayerTest, BuyTest) {
     TestAlgorithm test;
     Player player(&test, 10000);
-    std::map<std::string, float> prices;
+    map<string, float> prices;
     prices["a"] = 100;
     prices["b"] = 10;
     long time = 5;
@@ -20,7 +23,7 @@ TEST(PlayerTest, BuyTest) {
     player.execute_trades(prices, time);
     ASSERT_EQ(player.get_current_funds(), 0);
     ASSERT_EQ(player.get_starting_funds(), 10000);
-    std::map<std::string, Share> portfolio = player.get_portfolio();
+    map<string, Share> portfolio = player.get_portfolio();
     ASSERT_EQ(portfolio.size(), 1);
 
     prices["b"] = 101;
@@ -34,22 +37,22 @@ TEST(PlayerTest, BuyTest) {
 class MockPlayer : public PlayerInterface {
     public:
         MockPlayer() {}
-        MOCK_METHOD0(get_portfolio, std::map<std::string, Share>());
+        MOCK_METHOD0(get_portfolio, map<string, Share>());
         MOCK_METHOD0(get_current_funds, float());
         MOCK_METHOD0(get_starting_funds, float());
-        MOCK_METHOD2(execute_trades, void(const std::map<std::string, float>, long));
+        MOCK_METHOD2(execute_trades, void(const map<string, float>, long));
 };
 
 TEST(ManagerTest, AssetsTest) {
     MockPlayer player_mock;
-    std::map<std::string, Share> portfolio;
+    map<string, Share> portfolio;
     Share share("a", 10, 100, 1);
-    std::pair<std::string, Share> pair("a", share);
+    std::pair<string, Share> pair("a", share);
     portfolio.insert(pair);
     EXPECT_CALL(player_mock, get_portfolio()).WillOnce(Return(portfolio));
     EXPECT_CALL(player_mock, get_current_funds()).WillOnce(Return(20));
     Manager manager(0, 0);
-    std::map<std::string, float> prices;
+    map<string, float> prices;
     prices["a"] = 100;
     manager.set_prices(prices);
     float assets = manager.get_assets(player_mock);
@@ -65,7 +68,7 @@ TEST(ManagerTest, ParseTestTime) {
 TEST(ManagerTest, ParseTestPrices) {
     Manager manager(0, 0);
     manager.parse_line_feed("1420520460,Jell:81.3100000,Prisons:12.8600000,Armchair:230.1523800");
-    std::map<std::string, float> prices = manager.get_prices();
+    map<string, float> prices = manager.get_prices();
     float JellPrice = prices["Jell"];
     ASSERT_FLOAT_EQ(JellPrice, 81.31);
     float PrisonsPrice = prices["Prisons"];
