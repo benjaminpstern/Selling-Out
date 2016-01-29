@@ -14,6 +14,7 @@ class Market_Record
         std::vector<float>  week_data_;
         double  last_value_;
         double  current_value_;
+        long    previous_time_;
 
     public:
         Market_Record();

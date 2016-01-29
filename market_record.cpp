@@ -8,6 +8,7 @@
 Market_Record::Market_Record() : hour_data_(60,0), week_data_(130,0) {
     last_value_ = 0;
     current_value_ = 0;
+    previous_time_ = 0;
 }
 
 std::vector<float> Market_Record::get_hour_data( void ){

@@ -28,5 +28,10 @@ void StartingAlgorithm::update_metric(
     // Update Record, shift appropriate datasets
     week_data = record.get_week_data();
     hour_data = record.get_hour_data();
-
+    if( time - record.previous_time_ > 900 ) {
+        week_data.erase(week_data.begin());
+        week_data.push_back(price_update);
+    }
+    hour_data.erase(hour_data.begin());
+    hour_data.push_back(price_update);
 }
