@@ -19,7 +19,6 @@ class StartingAlgorithm : public StockAlgorithm {
             const std::map<std::string, Share> portfolio,
             long time)
         {
-            // TODO: double check this algorithm
             std::vector<Share>* buy_and_sell = new std::vector<Share>[2];
             std::vector<Share> buy;
             std::vector<Share> sell;
