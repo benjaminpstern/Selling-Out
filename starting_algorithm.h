@@ -52,16 +52,16 @@ class StartingAlgorithm : public StockAlgorithm {
         double metric_hard_sell_point_;
         double buy_price_volume_ratio_;
         
-        // TODO:
         void update_metric(
             Market_Record record,
             float funds,
             float price_update,
             map<string, Share> portfolio,
             long time);
-        float calculate_volatility(Market_Record record);
-        float calculate_growth(Market_Record record);
+        // TODO:
         int   recommend_buy_volume( Market_Record record, float current_funds );
+        double assess_growth_metric ( vector<float> growth_data );
+        double assess_volatility_metric ( vector<float> volatile_data );
 
         bool  consider_sell_share(Market_Record share_record){
             if( share_record.get_current_value() > metric_hard_buy_point_ ) return true;
